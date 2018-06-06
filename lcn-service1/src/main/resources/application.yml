@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: service1
+
+server:
+  port: 8081
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8080/eureka  #注册 中心已经开启认证
+  instance:
+    prefer-ip-address: true
+    instanceId: ${spring.application.name}:${server.port}
+
+feign:
+  hystrix:
+    enabled: true
+
+druid:
+   datasource:
+       url: jdbc:mysql://localhost:3306/service?characterEncoding=UTF-8&autoReconnect=true&zeroDateTimeBehavior=convertToNull&useUnicode=true
+       driverClassName: com.mysql.jdbc.Driver
+       username: root
+       password: root
+
+       #初始化值
+       initialSize: 0
+       #最小
+       minIdle: 0
+       #最大值
+       maxActive: 300
+       #配置获取连接等待超时的时间
+       maxWait: 5000
+       #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+       timeBetweenEvictionRunsMillis: 50000
+       #配置一个连接在池中最小生存的时间，单位是毫秒
+       minEvictableIdleTimeMillis: 300000
+       validationQuery: SELECT 'x'
+       testWhileIdle: true
+       testOnBorrow: true
+       testOnReturn: true
+       poolPreparedStatements: true
+       #打开PSCache
+       maxPoolPreparedStatementPerConnectionSize: 20
+       filters: config,stat

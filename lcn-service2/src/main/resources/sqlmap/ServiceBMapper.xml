@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.codedemo.lcn.service2.dao.mapper.ServiceBMapper" >
+  <resultMap id="BaseResultMap" type="com.codedemo.lcn.service2.dao.model.ServiceB" >
+    <id column="service_b_id" property="serviceBId" jdbcType="VARCHAR" />
+    <result column="service_b_name" property="serviceBName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    service_b_id, service_b_name
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.codedemo.lcn.service2.dao.model.ServiceBExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from service_b
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from service_b
+    where service_b_id = #{serviceBId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from service_b
+    where service_b_id = #{serviceBId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.codedemo.lcn.service2.dao.model.ServiceBExample" >
+    delete from service_b
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.codedemo.lcn.service2.dao.model.ServiceB" >
+    insert into service_b (service_b_id, service_b_name)
+    values (#{serviceBId,jdbcType=VARCHAR}, #{serviceBName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.codedemo.lcn.service2.dao.model.ServiceB" >
+    insert into service_b
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="serviceBId != null" >
+        service_b_id,
+      </if>
+      <if test="serviceBName != null" >
+        service_b_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="serviceBId != null" >
+        #{serviceBId,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceBName != null" >
+        #{serviceBName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.codedemo.lcn.service2.dao.model.ServiceBExample" resultType="java.lang.Integer" >
+    select count(*) from service_b
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update service_b
+    <set >
+      <if test="record.serviceBId != null" >
+        service_b_id = #{record.serviceBId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceBName != null" >
+        service_b_name = #{record.serviceBName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update service_b
+    set service_b_id = #{record.serviceBId,jdbcType=VARCHAR},
+      service_b_name = #{record.serviceBName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.codedemo.lcn.service2.dao.model.ServiceB" >
+    update service_b
+    <set >
+      <if test="serviceBName != null" >
+        service_b_name = #{serviceBName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where service_b_id = #{serviceBId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.codedemo.lcn.service2.dao.model.ServiceB" >
+    update service_b
+    set service_b_name = #{serviceBName,jdbcType=VARCHAR}
+    where service_b_id = #{serviceBId,jdbcType=VARCHAR}
+  </update>
+</mapper>
